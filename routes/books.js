@@ -16,7 +16,6 @@ booksRouter.route('/').get((req, res) => {
 });
 
 booksRouter.route('/').post((req, res) => {
-    console.log(req.body);
     Books.create({
         bookID: req.body.bookID, 
         title: req.body.title, 
@@ -41,7 +40,7 @@ booksRouter.route('/').post((req, res) => {
 });
 
 booksRouter.route('/:id').get((req, res) => {
-    Books.find({"bookId": req.params.id}, (err, result) => {
+    Books.find({"bookID": req.params.id}, (err, result) => {
         if (err) {
             throw err;
         } else {
@@ -51,7 +50,7 @@ booksRouter.route('/:id').get((req, res) => {
 });
 
 booksRouter.route('/:id').put((req, res) => {
-    Books.updateOne({"bookId": req.params.id}, {
+    Books.updateOne({"bookID": req.params.id}, {
         averageRating: req.body.averageRating,
         ratingsCount: req.body.ratingsCount,
         textReviewsCount: req.body.textReviewsCount,
@@ -61,19 +60,19 @@ booksRouter.route('/:id').put((req, res) => {
         if (err) {
             throw err;
         } else {
-            res.send({message: "Note with id: " + req.params.id + " updated Successfully"});
+            res.send({message: "Book with id: " + req.params.id + " updated Successfully"});
         }
     })
 });
 
 booksRouter.route('/:id').delete((req, res) => {
     Books.deleteOne({
-        "bookId": req.params.id
+        "bookID": req.params.id
     }, (err, result) => {
         if (err) {
             throw err;
         } else {
-            res.send({message: "Note with id: " + req.params.id + " deleted Successfully"});
+            res.send({message: "Book with id: " + req.params.id + " deleted Successfully"});
         }
     })
 });
