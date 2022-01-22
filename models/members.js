@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const MembersSchema = new mongoose.Schema({
-    memberId: String,
+    memberID: String,
     name: String,
     contactNo : String,
     dateOfJoining : Date,
-    currentBooksIssued: Number,
+    currentBooksIssued: [String],
     outstandingDebt: Number,
     totalPaidTillDate: Number
-});
+}, { versionKey: false });
 
 let Members = mongoose.model('Member', MembersSchema);
 module.exports = Members;
