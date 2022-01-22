@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+
+var app = require('../server');
+var http = require('http');
+
+var server = http.createServer(app);
+
+server.listen(3000);
+console.log('Server Running on port: ' + 3000);
