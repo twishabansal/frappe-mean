@@ -6,6 +6,16 @@ const {bookIssue, bookReturn, chargeRent} = require('../controllers/addTransacti
 let transactionsRouter = express.Router();
 transactionsRouter.use(bodyParser.json());
 
+transactionsRouter.route('/').get((req, res) => {
+    Transactions.find({}, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+})
+
 transactionsRouter.route('/borrow/:memberID/:bookID').post(bookIssue);
 
 transactionsRouter.route('/return/:memberID/:bookID').post(bookReturn);
