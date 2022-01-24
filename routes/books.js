@@ -1,7 +1,7 @@
 let express = require("express");
 var bodyParser = require("body-parser");
 const Books = require("../models/books");
-const {searchBookByTitle, searchBookByAuthor} = require('../services/searchBook');
+const {searchBookByTitle, searchBookByAuthor} = require('../controllers/searchBook');
 
 let booksRouter = express.Router();
 booksRouter.use(bodyParser.json());
