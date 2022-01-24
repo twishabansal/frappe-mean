@@ -13,8 +13,8 @@ const BooksSchema = new mongoose.Schema({
     textReviewsCount: String,
     publicationDate: String,
     publisher: String,
-    totalQuantity: Number,
-    stockAvailable: Number
+    totalQuantity: {type: Number, default: 0},
+    stockAvailable: {type: Number, default: 0}
 }, { versionKey: false });
 
 let Books = mongoose.model('Book', BooksSchema);

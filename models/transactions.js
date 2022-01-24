@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const TransactionsSchema = new mongoose.Schema({
-    bookId: String,
-    memberId: String,
-    transactionType: String, // borrow, return or payment
-    amountOwed: Number,
-    amountPaid: Number
+    bookID: String,
+    memberID: String,
+    transactionType: String, // borrow or return
+    amountOwed: {type: Number, default: 0},
+    amountPaid: {type: Number, default: 0}
 }, {
     timestamp: true
 });
