@@ -1,6 +1,7 @@
 let express = require("express");
 var bodyParser = require("body-parser");
 const Books = require("../models/books");
+const {searchBookByTitle, searchBookByAuthor} = require('../services/searchBook');
 
 let booksRouter = express.Router();
 booksRouter.use(bodyParser.json());
@@ -76,5 +77,9 @@ booksRouter.route('/:id').delete((req, res) => {
         }
     })
 });
+
+booksRouter.route('/searchByTitle/:title').get(searchBookByTitle);
+
+booksRouter.route('/searchByAuthor/:author').get(searchBookByAuthor);
 
 module.exports = booksRouter;
