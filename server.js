@@ -9,6 +9,7 @@ let pingRouter = require('./routes/ping');
 let booksRouter = require('./routes/books');
 let membersRouter = require('./routes/members');
 let transactionsRouter = require('./routes/transactions');
+let importsRouter = require('./routes/importData');
 
 app.use(cors());
 app.use(bodyparser.json());
@@ -18,5 +19,6 @@ app.use("/ping", pingRouter);
 app.use("/books", booksRouter);
 app.use("/members", membersRouter);
 app.use("/transactions", transactionsRouter);
+app.use("/importData", importsRouter);
 
 module.exports = app;
