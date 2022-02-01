@@ -20,16 +20,33 @@ function changeImportSchema(book) {
     };
 }
 
-async function importData(req, res) {
-    var numBooks = req.params.numBooks;
+async function importDataUsingParams(req, res) {
     var pageNum = 1;
+    parameters = {'page' : pageNum};
+    if (req.body.hasOwnProperty('numBooks')) {
+        parameters['numBooks'] = req.body.numBooks;
+    }
+    if (req.body.hasOwnProperty('eachBookQuantity')) {
+        parameters['eachBookQuantity'] = req.body.eachBookQuantity;
+    }
+    if (req.body.hasOwnProperty('title')) {
+        parameters['title'] = req.body.title;
+    }
+    if (req.body.hasOwnProperty('authors')) {
+        parameters['authors'] = req.body.authors;
+    }
+    if (req.body.hasOwnProperty('isbn')) {
+        parameters['isbn'] = req.body.isbn;
+    }
+    if (req.body.hasOwnProperty('publisher')) {
+        parameters['publisher'] = req.body.publisher;
+    }
     var numBooksImported = 0;
-    while (numBooksImported < numBooks) {
+    var numBooksDuplicates = 0;
+    while (numBooksImported + numBooksDuplicates < parameters.numBooks) {
         try {
             let booksMsg = await axios.get(FRAPPE_API_URL, {
-                params: {
-                    page: pageNum
-                }
+                params: parameters
             });
             for (book in booksMsg.data['message']) {
                 var newBook = changeImportSchema(booksMsg.data['message'][book]);
@@ -37,13 +54,14 @@ async function importData(req, res) {
                     let bookExists = await Books.exists({"bookID": newBook.bookID});
                     if (bookExists) {
                         console.log('Book with BookID' + newBook.bookID + ' already present');
+                        numBooksDuplicates++;
                     } else {
                         Books.create(newBook);
                         numBooksImported++;
-                        if (numBooksImported == numBooks) {
-                            res.send('Books Successfully imported');
-                            return;
-                        }
+                    }
+                    if (numBooksImported + numBooksDuplicates == parameters.numBooks) {
+                        res.send(numBooksImported + ' out of ' + parameters.numBooks + ' Books Successfully imported');
+                        return;
                     }
                 } catch (err) {
                     throw err;
@@ -53,7 +71,7 @@ async function importData(req, res) {
             throw err;
         }
         pageNum++;
-    }
+    }    
 }
 
-module.exports = {importData};
+module.exports = {importDataUsingParams};
