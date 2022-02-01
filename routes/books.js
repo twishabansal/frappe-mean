@@ -1,5 +1,5 @@
 let express = require("express");
-var bodyParser = require("body-parser");
+let bodyParser = require("body-parser");
 const Books = require("../models/books");
 const {searchBookByTitle, searchBookByAuthor} = require('../controllers/searchBook');
 

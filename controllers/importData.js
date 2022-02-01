@@ -21,7 +21,7 @@ function changeImportSchema(book) {
 }
 
 async function importDataUsingParams(req, res) {
-    var pageNum = 1;
+    let pageNum = 1;
     parameters = {'page' : pageNum};
     if (req.body.hasOwnProperty('numBooks')) {
         parameters['numBooks'] = req.body.numBooks;
@@ -41,15 +41,15 @@ async function importDataUsingParams(req, res) {
     if (req.body.hasOwnProperty('publisher')) {
         parameters['publisher'] = req.body.publisher;
     }
-    var numBooksImported = 0;
-    var numBooksDuplicates = 0;
+    let numBooksImported = 0;
+    let numBooksDuplicates = 0;
     while (numBooksImported + numBooksDuplicates < parameters.numBooks) {
         try {
             let booksMsg = await axios.get(FRAPPE_API_URL, {
                 params: parameters
             });
             for (book in booksMsg.data['message']) {
-                var newBook = changeImportSchema(booksMsg.data['message'][book]);
+                let newBook = changeImportSchema(booksMsg.data['message'][book]);
                 try {
                     let bookExists = await Books.exists({"bookID": newBook.bookID});
                     if (bookExists) {

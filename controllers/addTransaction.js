@@ -3,9 +3,9 @@ const Books = require("../models/books");
 const Members = require("../models/members");
 
 async function bookIssue(req, res) {
-    var bookID = req.params.bookID;
-    var memberID = req.params.memberID;
-    var newRent = req.body.rentAmount;
+    let bookID = req.params.bookID;
+    let memberID = req.params.memberID;
+    let newRent = req.body.rentAmount;
     try {
         let member = await Members.findOne({"memberID": memberID});
         if (member.currentBooksIssued) {
@@ -56,9 +56,9 @@ async function bookIssue(req, res) {
 }
 
 function bookReturn(req, res) {
-    var bookID = req.params.bookID;
-    var memberID = req.params.memberID;
-    var amountPaid = req.body.rentPaid;
+    let bookID = req.params.bookID;
+    let memberID = req.params.memberID;
+    let amountPaid = req.body.rentPaid;
     Members.updateOne({"memberID": memberID},
         { $pull: { "currentBooksIssued": {"bookID" : bookID, "rentOwed": amountPaid}},  $inc: {"outstandingDebt": -1 * amountPaid}}, (err, member) => {
             if (err) {
@@ -91,8 +91,8 @@ function bookReturn(req, res) {
 }
 
 function chargeRent(req, res) {
-    var memberID = req.params.memberID;
-    var bookID = req.params.bookID;
+    let memberID = req.params.memberID;
+    let bookID = req.params.bookID;
     Members.findOne({"memberID": memberID}, (err, member) => {
         if (err) {
             throw err;

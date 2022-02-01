@@ -1,5 +1,5 @@
 let express = require("express");
-var bodyParser = require("body-parser");
+let bodyParser = require("body-parser");
 const Transactions = require("../models/transactions");
 const {bookIssue, bookReturn, chargeRent} = require('../controllers/addTransaction');
 
