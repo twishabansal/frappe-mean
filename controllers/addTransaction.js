@@ -33,7 +33,7 @@ async function bookIssue(req, res) {
             }
         }
     );
-    Books.updateOne({"bookID": bookID}, {$inc: {"stockAvailable": -1}}, (err, book) => {
+    Books.updateOne({"bookID": bookID}, {$inc: {"stockAvailable": -1, "numTimesRented" :1}}, (err, book) => {
         if (err) {
             throw err;
         } else {

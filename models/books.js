@@ -14,7 +14,8 @@ const BooksSchema = new mongoose.Schema({
     publicationDate: String,
     publisher: String,
     totalQuantity: {type: Number, default: 0},
-    stockAvailable: {type: Number, default: 0}
+    stockAvailable: {type: Number, default: 0},
+    numTimesRented: {type: Number, default: 0}
 }, { versionKey: false });
 
 let Books = mongoose.model('Book', BooksSchema);
