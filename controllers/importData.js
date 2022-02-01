@@ -71,6 +71,7 @@ async function importDataUsingParams(req, res) {
             throw err;
         }
         pageNum++;
+        parameters['page'] = pageNum;
     }    
 }
 
