@@ -5,8 +5,6 @@ const {importDataUsingParams} = require('../controllers/importData');
 let dataImportRouter = express.Router();
 dataImportRouter.use(bodyParser.json());
 
-// dataImportRouter.route('/:numBooks').get(importData);
-
 dataImportRouter.route('/').post(importDataUsingParams);
 
 module.exports = dataImportRouter;
