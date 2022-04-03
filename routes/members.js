@@ -39,7 +39,7 @@ membersRouter.route('/:id').get((req, res) => {
 
 membersRouter.route('/:id').put((req, res) => {
     Members.updateOne({"memberID": req.params.id}, {
-        contactNo: req.params.contactNo,
+        contactNo: req.body.contactNo,
         currentBooksIssued: req.body.currentBooksIssued,
         outstandingDebt: req.body.outstandingDebt,
         totalPaidTillDate: req.body.totalPaidTillDate,
