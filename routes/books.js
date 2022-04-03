@@ -7,13 +7,11 @@ let booksRouter = express.Router();
 booksRouter.use(bodyParser.json());
 
 booksRouter.route('/').get((req, res) => {
-    Books.find({}, (err, result) => {
-        if (err) {
-            throw err;
-        } else {
-            res.send(result);
-        }
-    })
+    Books.find({}).then((result) => {
+        res.send(result);
+    }).catch(err => {
+        throw err;
+    });
 });
 
 booksRouter.route('/').post((req, res) => {
@@ -32,22 +30,20 @@ booksRouter.route('/').post((req, res) => {
         publisher: req.body.publisher,
         totalQuantity: req.body.numBook,
         stockAvailable: req.body.numBook
-    }, (err, result) => {
-        if (err) {
-            throw err;
-        } 
+    }).then((result) => {
         res.send(result);
+    }).catch(err => {
+        throw err;
     })
 });
 
 booksRouter.route('/:id').get((req, res) => {
-    Books.find({"bookID": req.params.id}, (err, result) => {
-        if (err) {
-            throw err;
-        } else {
-            res.send(result);
-        }
-    })
+    Books.find({"bookID": req.params.id})
+    .then((result) => {
+        res.send(result);
+    }).catch(err => {
+        throw err;
+    });
 });
 
 booksRouter.route('/:id').put((req, res) => {
@@ -57,25 +53,21 @@ booksRouter.route('/:id').put((req, res) => {
         textReviewsCount: req.body.textReviewsCount,
         totalQuantity: req.body.totalQuantity,
         stockAvailable: req.body.stockAvailable
-    }, (err, result) => {
-        if (err) {
-            throw err;
-        } else {
-            res.send({message: "Book with id: " + req.params.id + " updated Successfully"});
-        }
-    })
+    }).then((result) => {
+        res.send({message: "Book with id: " + req.params.id + " updated Successfully"});
+    }).catch(err => {
+        throw err;
+    });
 });
 
 booksRouter.route('/:id').delete((req, res) => {
     Books.deleteOne({
         "bookID": req.params.id
-    }, (err, result) => {
-        if (err) {
-            throw err;
-        } else {
-            res.send({message: "Book with id: " + req.params.id + " deleted Successfully"});
-        }
-    })
+    }).then((result) => {
+        res.send({message: "Book with id: " + req.params.id + " deleted Successfully"});
+    }).catch(err => {
+        throw err;
+    });
 });
 
 booksRouter.route('/searchByTitle/:title').get(searchBookByTitle);
