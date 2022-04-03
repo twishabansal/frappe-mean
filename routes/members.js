@@ -43,13 +43,11 @@ membersRouter.route('/:id').put((req, res) => {
         currentBooksIssued: req.body.currentBooksIssued,
         outstandingDebt: req.body.outstandingDebt,
         totalPaidTillDate: req.body.totalPaidTillDate,
-    }, (err, result) => {
-        if (err) {
-            throw err;
-        } else {
-            res.send({message: "Member with id: " + req.params.id + " updated Successfully"});
-        }
-    })
+    }).then((result) => {
+        res.send({message: "Member with id: " + req.params.id + " updated Successfully"});
+    }).catch((err) => {
+        throw err;
+    });
 });
 
 membersRouter.route('/:id').delete((req, res) => {
