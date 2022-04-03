@@ -30,7 +30,7 @@ membersRouter.route('/').post((req, res) => {
 });
 
 membersRouter.route('/:id').get((req, res) => {
-    Members.find({"member": req.params.id}).then((result) => {
+    Members.find({"memberID": req.params.id}).then((result) => {
         res.send(result);
     }).catch(err => {
         throw err;
