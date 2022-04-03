@@ -6,12 +6,10 @@ let membersRouter = express.Router();
 membersRouter.use(bodyParser.json());
 
 membersRouter.route('/').get((req, res) => {
-    Members.find({}, (err, result) => {
-        if (err) {
-            throw err;
-        } else {
-            res.send(result);
-        }
+    Members.find({}).then((result) => {
+        res.send(result);
+    }).catch((err) => {
+        throw err;
     })
 });
 
@@ -24,22 +22,19 @@ membersRouter.route('/').post((req, res) => {
         currentBooksIssued: req.body.currentBooksIssued,
         outstandingDebt: req.body.outstandingDebt,
         totalPaidTillDate: req.body.totalPaidTillDate,
-    }, (err, result) => {
-        if (err) {
-            throw err;
-        } 
+    }).then((result) => {
         res.send(result);
+    }).catch((err) => {
+        throw err;
     })
 });
 
 membersRouter.route('/:id').get((req, res) => {
-    Members.find({"member": req.params.id}, (err, result) => {
-        if (err) {
-            throw err;
-        } else {
-            res.send(result);
-        }
-    })
+    Members.find({"member": req.params.id}).then((result) => {
+        res.send(result);
+    }).catch(err => {
+        throw err;
+    });
 });
 
 membersRouter.route('/:id').put((req, res) => {
@@ -60,12 +55,10 @@ membersRouter.route('/:id').put((req, res) => {
 membersRouter.route('/:id').delete((req, res) => {
     Members.deleteOne({
         "memberID": req.params.id
-    }, (err, result) => {
-        if (err) {
-            throw err;
-        } else {
-            res.send({message: "Member with id: " + req.params.id + " deleted Successfully"});
-        }
+    }).then((result) => {
+        res.send({message: "Member with id: " + req.params.id + " deleted Successfully"});
+    }).catch(err => {
+        throw err;
     })
 });
 
