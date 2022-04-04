@@ -50,8 +50,8 @@ async function importDataUsingParams(req, res) {
             });
             for (book in booksMsg.data['message']) {
                 let newBook = changeImportSchema(booksMsg.data['message'][book]);
-                try {
-                    let bookExists = await Books.exists({"bookID": newBook.bookID});
+                Books.exists({"bookID": newBook.bookID}).then((bookExists) =>
+                {
                     if (bookExists) {
                         console.log('Book with BookID' + newBook.bookID + ' already present');
                         numBooksDuplicates++;
@@ -63,9 +63,9 @@ async function importDataUsingParams(req, res) {
                         res.send(numBooksImported + ' out of ' + parameters.numBooks + ' Books Successfully imported');
                         return;
                     }
-                } catch (err) {
+                }).catch((err) => {
                     throw err;
-                }
+                })
             }
         } catch (err) {
             throw err;
