@@ -7,14 +7,12 @@ let transactionsRouter = express.Router();
 transactionsRouter.use(bodyParser.json());
 
 transactionsRouter.route('/').get((req, res) => {
-    Transactions.find({}, (err, result) => {
-        if (err) {
-            throw err;
-        } else {
-            res.send(result);
-        }
-    });
-})
+    Transactions.find({}).then((result) => {
+        res.send(result);
+    }).catch((err) => {
+        throw err;
+    })
+});
 
 transactionsRouter.route('/borrow/:memberID/:bookID').post(bookIssue);
 
